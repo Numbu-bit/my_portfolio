@@ -1153,7 +1153,11 @@ footer p strong { color: rgba(255,255,255,0.7); }
   .pthumb-icon { font-size: 2rem !important; }
   .pbody { padding: 0.7rem !important; }
   .ptitle { font-size: 0.82rem !important; margin-bottom: 0.2rem; }
-  .pdesc { font-size: 0.72rem !important; margin-bottom: 0.4rem; line-height: 1.4; -webkit-line-clamp: 2 !important; }
+  .pdesc { 
+    font-size: 0.72rem !important; 
+    margin-bottom: 0.4rem; line-height: 1.4;
+    line-clamp: 2; 
+    -webkit-line-clamp: 2 !important; }
   .pstack { gap: 0.2rem; }
   .pstack span { font-size: 0.6rem !important; padding: 0.1rem 0.35rem; }
   .pcard-footer { padding-top: 0.5rem; }
