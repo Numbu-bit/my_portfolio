@@ -1084,7 +1084,7 @@ document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
 ══════════════════════════════════════════════════════ */
 const EMAILJS_SERVICE_ID  = 'service_axbhcwp';
 const EMAILJS_TEMPLATE_ID = 'template_37emx4b';
-const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_KEY_HERE';
+const EMAILJS_PUBLIC_KEY  = 'NNvAxJU4w-cZToAlr';
 emailjs.init(EMAILJS_PUBLIC_KEY);
 
 document.getElementById('sendBtn').addEventListener('click', () => {
