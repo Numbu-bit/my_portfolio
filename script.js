@@ -1434,18 +1434,15 @@ async function sendChatMessage(userText) {
   showTyping();
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Your_API_Key_Here'
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 1000,
-        messages: [{ role: 'system', content: YUSSIF_SYSTEM_PROMPT }, ...chatHistory]
-      })
-    });
+    const res = await fetch('/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    messages: [{ role: 'system', content: YUSSIF_SYSTEM_PROMPT }, ...chatHistory]
+  })
+});
     const data = await res.json();
     removeTyping();
     const reply = data.choices?.[0]?.message?.content
