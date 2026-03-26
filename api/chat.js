@@ -6,29 +6,34 @@ export default async function handler(req, res) {
   try {
     const { messages } = req.body;
 
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        max_tokens: 1000,
-        messages
-      })
-    });
+    const response = await fetch(
+      'https://api-inference.huggingface.co/models/TheBloke/Llama-3-7B-Chat-GGML', 
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.HF_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          inputs: messages[messages.length - 1].content, // send last user message
+          parameters: { max_new_tokens: 500 }
+        })
+      }
+    );
 
     const data = await response.json();
-    if (!response.ok) {
-  return res.status(response.status).json(data);
-}
-    return res.status(200).json(data);
 
- } catch (error) {
-  return res.status(500).json({
-    error: 'Something went wrong with the chatbot API.',
-    details: error.message
-  });
-}
+    if (data.error) {
+      return res.status(500).json({ error: data.error });
+    }
+
+    // Hugging Face returns text in 'generated_text'
+    return res.status(200).json({ reply: data[0]?.generated_text || "No reply generated." });
+
+  } catch (error) {
+    return res.status(500).json({
+      error: 'Something went wrong with the Hugging Face API.',
+      details: error.message
+    });
+  }
 }
