@@ -1440,7 +1440,7 @@ async function sendChatMessage(userText) {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-    messages: [{ role: 'system', content: YUSSIF_SYSTEM_PROMPT }, ...chatHistory]
+    messages: [{ role: 'system', content: YUSSIF_SYSTEM_PROMPT }, ...chatHistory.slice(-6)]
   })
 });
     const data = await res.json();
