@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mubarik Yussif | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- FLOATING BUBBLES CANVAS -->
+  <canvas id="bubbleCanvas"></canvas>
+
+  <!-- NOISE OVERLAY -->
+  <div class="noise"></div>
+
+  <!-- ══════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════ -->
+  <nav id="mainNav">
+    <a href="#hero" class="nav-logo">
+      <span class="logo-ym">MY</span><span class="logo-dot">.</span>
+    </a>
+
+    <!-- ✅ ONE nav list only — includes Gallery -->
+    <ul class="nav-links">
+      <li><a href="#about"     data-nav>About</a></li>
+      <li><a href="#biography" data-nav>Bio</a></li>
+      <li><a href="#skills"    data-nav>Skills</a></li>
+      <li><a href="#projects"  data-nav>Projects</a></li>
+      <li><a href="#gallery"   data-nav>Gallery</a></li>
+      <li><a href="#certificates" data-nav>Certificates</a></li>
+      <li><a href="#contact"   data-nav class="nav-cta">Contact</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="drawer" id="drawer">
+    <div class="drawer-inner">
+      <a href="#about"     class="drawer-link">About</a>
+      <a href="#biography" class="drawer-link">Biography</a>
+      <a href="#skills"    class="drawer-link">Skills</a>
+      <a href="#projects"  class="drawer-link">Projects</a>
+      <a href="#gallery"   class="drawer-link">Gallery</a>
+      <a href="#certificates" class="drawer-link">Certificates</a>
+      <a href="#contact"   class="drawer-link">Contact</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-glow glow-1"></div>
+    <div class="hero-glow glow-2"></div>
+    <div class="hero-glow glow-3"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        Available for Collaboration
+      </div>
+      <h1 class="hero-title">
+        <span class="line" data-text="Mubarik">Mubarik</span>
+        <span class="line accent" data-text="Yussif">Yussif </span>
+      </h1>
+      <p class="hero-sub">
+        Computer Science Student &amp; <strong>STEM Facilitator</strong><br>
+        STEAMerChamps Academy · Ghana Science &amp; Tech<br>
+        Explorer Prize <strong>Technical Coach</strong>
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary magnetic">
+          <span>View My Work</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a href="#contact" class="btn btn-outline magnetic">
+          <span>Get In Touch</span>
+        </a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">🇬🇭 Ghana</span>
+        <span class="chip">💻 CS Student</span>
+        <span class="chip">🔬 STEM Coach</span>
+        <span class="chip">🏆 Tech Explorer</span>
+      </div>
+    </div>
+
+    <!-- ✅ FIXED hero visual — clean single avatar-card, no nesting -->
+    <div class="hero-visual">
+      <div class="avatar-ring ring-3"></div>
+      <div class="avatar-ring ring-2"></div>
+      <div class="avatar-ring ring-1"></div>
+
+      <div class="avatar-card tilt-card">
+        <!-- Profile photo — drop your image in images/profile.jpg -->
+        <!-- If image is missing, initials show as fallback automatically -->
+        <img
+          src="images/profile.jpeg"
+          alt="Mubarik Yussif"
+          class="avatar-photo"
+          onerror="this.style.display='none'; document.getElementById('avatarFallback').style.display='flex';"
+        />
+        <div class="avatar-inner" id="avatarFallback">
+          <div class="av-initials">MY</div>
+          <div class="av-rocket">🚀</div>
+        </div>
+        <div class="avatar-badge">
+          <span>STEM</span><span>Coach</span><span>🌍</span>
+        </div>
+        <div class="card-shine"></div>
+      </div>
+
+      
+
+      <div class="float-tag tag-1 tilt-card">💡 Innovator</div>
+      <div class="float-tag tag-2 tilt-card">🔬 Researcher</div>
+      <div class="float-tag tag-3 tilt-card">🌍 Educator</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       ABOUT
+  ══════════════════════════════════ -->
+  <section id="about">
+    <div class="section-glow"></div>
+    <div class="s-label reveal">Who I Am</div>
+    <h2 class="s-title reveal">About <span class="gradient-text">Me</span></h2>
+
+    <div class="about-grid">
+      <div class="about-cards">
+        <div class="acard tilt-card reveal" data-delay="0">
+          <div class="acard-glow"></div>
+          <div class="acard-icon">🎓</div>
+          <h3>CS Student</h3>
+          <p>Passionate about technology and building solutions that matter — always learning, always growing.</p>
+        </div>
+        <div class="acard tilt-card reveal" data-delay="100">
+          <div class="acard-glow"></div>
+          <div class="acard-icon">🔬</div>
+          <h3>STEM Facilitator</h3>
+          <p>Empowering the next generation of innovators at STEAMerChamps Academy through hands-on learning.</p>
+        </div>
+        <div class="acard tilt-card reveal" data-delay="200">
+          <div class="acard-glow"></div>
+          <div class="acard-icon">🏆</div>
+          <h3>Technical Coach</h3>
+          <p>Official technical coach for the Ghana Science &amp; Technology Explorer Prize.</p>
+        </div>
+      </div>
+
+      <div class="about-text reveal" data-delay="100">
+  <p>Hi! I'm <strong>Mubarik Yussif</strong>, a driven computer science student with a deep passion for technology, education, and community impact. I believe that access to quality STEM education can change lives.</p>
+  <p>As a <strong>STEM Facilitator at <a href="https://steamerchamps.com" target="_blank" rel="noopener" class="bio-link">STEAMerChamps Academy</a></strong>, I create exciting, hands-on learning experiences that spark curiosity and ignite a love for STEM.</p>
+  <p>As a <strong>Technical Coach</strong> for the <a href="https://www.gstep.org.gh" target="_blank" rel="noopener" class="bio-link">Ghana Science &amp; Technology Explorer Prize</a>, I mentor talented young Ghanaians to build competitive tech projects.</p>
+  <p>My mission: bridge the gap between education and innovation in Ghana — one student, one project, one breakthrough at a time. 🌟</p>
+  <a href="#contact" class="btn btn-primary magnetic" style="margin-top:1.8rem">
+    <span>Let's Connect</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </a>
+</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       BIOGRAPHY
+  ══════════════════════════════════ -->
+  <section id="biography" class="bio-section">
+    <div class="bio-bg-text">BIO</div>
+    <div class="bio-wrap">
+      <div class="s-label reveal light-label">My Story</div>
+      <h2 class="s-title reveal light-title">Biography</h2>
+      <blockquote class="bio-quote reveal">
+        <div class="quote-mark">"</div>
+        Technology is not just a tool — it's a language. And I'm here to help every young Ghanaian speak it fluently.
+      </blockquote>
+      <div class="bio-text">
+  <p class="reveal">Mubarik Yussif is a passionate technologist, educator, and innovator based in Ghana. From an early age, he developed a fascination with computers and how technology could solve real-world problems — leading him to pursue Computer Science.</p>
+  <p class="reveal">Alongside his studies, Yussif facilitates at <a href="https://steamerchamps.com" target="_blank" rel="noopener" class="bio-link"><strong class="gold">STEAMerChamps Academy</strong></a>, designing sessions that make complex STEM concepts accessible. He brings creativity and energy to every class, turning abstract ideas into exciting discoveries.</p>
+  <p class="reveal">As a <a href="https://www.gstep.org.gh" target="_blank" rel="noopener" class="bio-link"><strong class="gold">Technical Coach for the Ghana Science &amp; Technology Explorer Prize</strong></a>, he mentors young innovators to build and pitch cutting-edge projects that compete nationally — combining deep technical expertise with infectious enthusiasm.</p>
+  <p class="reveal">Yussif's vision: a Ghana where every young person has the tools, knowledge, and confidence to shape the future.</p>
+</div>
+      <div class="bio-stats reveal">
+        <div class="bstat">
+          <div class="bstat-num counter" data-target="50">0</div>
+          <div class="bstat-sym">+</div>
+          <div class="bstat-lbl">Students Mentored</div>
+        </div>
+        <div class="bstat-divider"></div>
+        <div class="bstat">
+          <div class="bstat-num counter" data-target="3">0</div>
+          <div class="bstat-sym">+</div>
+          <div class="bstat-lbl">Years STEM Ed</div>
+        </div>
+        <div class="bstat-divider"></div>
+        <div class="bstat">
+          <div class="bstat-num">🇬🇭</div>
+          <div class="bstat-sym"></div>
+          <div class="bstat-lbl">Based in Ghana</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       SKILLS
+  ══════════════════════════════════ -->
+  <section id="skills">
+    <div class="section-glow"></div>
+    <div class="s-label reveal">What I Do</div>
+    <h2 class="s-title reveal">Skills &amp; <span class="gradient-text">Expertise</span></h2>
+    <div class="skills-grid">
+
+      <div class="scard tilt-card reveal" data-delay="0">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">💻</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="85" data-color="#FFD94A"></div></div>
+        </div>
+        <div class="scard-name">Programming</div>
+        <div class="scard-desc">Python, JavaScript, Java, C++ and more — software development and creative problem solving.</div>
+        <div class="scard-pct">85%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="80">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">🌐</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="80" data-color="#FF6B35"></div></div>
+        </div>
+        <div class="scard-name">Web Development</div>
+        <div class="scard-desc">Responsive, modern websites with HTML, CSS, and JavaScript frameworks.</div>
+        <div class="scard-pct">80%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="160">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">🔬</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="95" data-color="#00C9A7"></div></div>
+        </div>
+        <div class="scard-name">STEM Education</div>
+        <div class="scard-desc">Designing and facilitating engaging, hands-on STEM sessions for young learners.</div>
+        <div class="scard-pct">95%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="240">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">🤖</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="75" data-color="#FFD94A"></div></div>
+        </div>
+        <div class="scard-name">Robotics &amp; Electronics</div>
+        <div class="scard-desc">Arduino, sensors, and physical computing for educational demonstrations.</div>
+        <div class="scard-pct">75%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="320">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">🏅</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="90" data-color="#FF6B35"></div></div>
+        </div>
+        <div class="scard-name">Coaching &amp; Mentoring</div>
+        <div class="scard-desc">Guiding students to develop award-worthy projects for national competitions.</div>
+        <div class="scard-pct">90%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="400">
+        <div class="scard-bg"></div>
+        <div class="scard-shine"></div>
+        <div class="scard-top">
+          <span class="scard-emoji">🎨</span>
+          <div class="sbar-wrap"><div class="sbar" data-bar="88" data-color="#00C9A7"></div></div>
+        </div>
+        <div class="scard-name">Creative Problem Solving</div>
+        <div class="scard-desc">Innovative solutions blending technology with real community needs.</div>
+        <div class="scard-pct">88%</div>
+      </div>
+
+      <div class="scard tilt-card reveal" data-delay="480">
+  <div class="scard-bg"></div>
+  <div class="scard-shine"></div>
+  <div class="scard-top">
+    <span class="scard-emoji">🎤</span>
+    <div class="sbar-wrap"><div class="sbar" data-bar="85" data-color="#FFD94A"></div></div>
+  </div>
+  <div class="scard-name">Public Speaking</div>
+  <div class="scard-desc">Confident communicator — presenting ideas, facilitating workshops, and inspiring audiences across STEM events and competitions.</div>
+  <div class="scard-pct">85%</div>
+  </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       PROJECTS
+  ══════════════════════════════════ -->
+  <section id="projects" class="projects-section">
+    <div class="section-glow"></div>
+    <div class="s-label reveal">My Work</div>
+    <h2 class="s-title reveal">Featured <span class="gradient-text">Projects</span></h2>
+    <div class="proj-grid">
+
+      <div class="pcard tilt-card reveal" data-delay="0">
+        <div class="pcard-shine"></div>
+        <div class="pthumb">
+          <div class="pthumb-bg pb-y"></div>
+          <span class="pthumb-icon">🔬</span>
+        </div>
+        <div class="pbody">
+          <div class="ptag-row">
+            <span class="ptag">STEM Education</span>
+            <span class="pstatus live">● Active</span>
+          </div>
+          <div class="ptitle">STEAMerChamps Curriculum</div>
+          <p class="pdesc">Developed hands-on lesson plans and interactive modules covering coding, robotics, and scientific thinking for young learners across Ghana.</p>
+          <div class="pcard-footer">
+            <div class="pstack">
+              <span>🐍 Python</span><span>🤖 Arduino</span><span>📐 Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard tilt-card reveal" data-delay="120">
+        <div class="pcard-shine"></div>
+        <div class="pthumb">
+          <div class="pthumb-bg pb-o"></div>
+          <span class="pthumb-icon">🏆</span>
+        </div>
+        <div class="pbody">
+          <div class="ptag-row">
+            <span class="ptag">Coaching</span>
+            <span class="pstatus live">● Active</span>
+          </div>
+          <div class="ptitle">Ghana Tech Explorer Prep</div>
+          <p class="pdesc">Coached and mentored student teams for the Ghana Science &amp; Technology Explorer Prize — building and pitching competitive tech projects nationally.</p>
+          <div class="pcard-footer">
+            <div class="pstack">
+              <span>🌐 Web</span><span>🤖 Robotics</span><span>🧠 Strategy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard tilt-card reveal" data-delay="240">
+        <div class="pcard-shine"></div>
+        <div class="pthumb">
+          <div class="pthumb-bg pb-t"></div>
+          <span class="pthumb-icon">💡</span>
+        </div>
+        <div class="pbody">
+          <div class="ptag-row">
+            <span class="ptag">Innovation</span>
+            <span class="pstatus building">⚡ Building</span>
+          </div>
+          <div class="ptitle">Community Tech Solutions</div>
+          <p class="pdesc">Designing and implementing technology-based solutions for local community challenges, combining software and hardware to make a real-world impact.</p>
+          <div class="pcard-footer">
+            <div class="pstack">
+              <span>💻 Code</span><span>🔌 Hardware</span><span>🌍 Impact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--new-->
+      <div class="pcard tilt-card reveal" data-delay="0">
+  <div class="pcard-shine"></div>
+  <div class="pthumb">
+    <div class="pthumb-bg pb-o"></div>
+    <span class="pthumb-icon">🔥</span>
+  </div>
+  <div class="pbody">
+    <div class="ptag-row">
+      <span class="ptag">Safety Tech</span>
+      <span class="pstatus live">● GSTEP</span>
+    </div>
+    <div class="ptitle">Automatic Vehicle Fire Extinguisher</div>
+    <p class="pdesc">A smart fire suppression system installed in vehicles that detects fire, automatically suppresses it, and sends an SMS alert to the nearest fire station — reducing risk and saving lives. Built by Team <strong>Competition Crushers</strong>.</p>
+    <div class="pcard-footer">
+      <div class="pstack">
+        <span>⚡ ESP32</span><span>📡 SIM Alert</span><span>🔥 Suppression</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pcard tilt-card reveal" data-delay="120">
+  <div class="pcard-shine"></div>
+  <div class="pthumb">
+    <div class="pthumb-bg pb-t"></div>
+    <span class="pthumb-icon">🚦</span>
+  </div>
+  <div class="pbody">
+    <div class="ptag-row">
+      <span class="ptag">Smart Infrastructure</span>
+      <span class="pstatus live">● GSTEP</span>
+    </div>
+    <div class="ptitle">Smart Student Crossing System</div>
+    <p class="pdesc">An intelligent traffic light system designed to help students cross roads safely. Uses sensors to detect pedestrians and automatically control traffic flow. Built by Team <strong>Critical Thinkers</strong>.</p>
+    <div class="pcard-footer">
+      <div class="pstack">
+        <span>⚡ ESP32</span><span>🚦 Traffic Control</span><span>🛡️ Safety</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pcard tilt-card reveal" data-delay="240">
+  <div class="pcard-shine"></div>
+  <div class="pthumb">
+    <div class="pthumb-bg pb-y"></div>
+    <span class="pthumb-icon">🐟</span>
+  </div>
+  <div class="pbody">
+    <div class="ptag-row">
+      <span class="ptag">AgriTech</span>
+      <span class="pstatus live">● GSTEP</span>
+    </div>
+    <div class="ptitle">AquaSmart Fish Feeder</div>
+    <p class="pdesc">An automated fish feeding system that monitors water quality and sends real-time alerts to farmers when issues are detected — making fish farming smarter and more efficient. Built by Team <strong>Aqua Smart Engineers</strong>.</p>
+    <div class="pcard-footer">
+      <div class="pstack">
+        <span>⚡ ESP32</span><span>💧 Water Sensors</span><span>📲 Alerts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pcard tilt-card reveal" data-delay="360">
+  <div class="pcard-shine"></div>
+  <div class="pthumb">
+    <div class="pthumb-bg pb-t"></div>
+    <span class="pthumb-icon">📚</span>
+  </div>
+  <div class="pbody">
+    <div class="ptag-row">
+      <span class="ptag">EdTech</span>
+      <span class="pstatus live">● GSTEP</span>
+    </div>
+    <div class="ptitle">FamilyTrade Book Swap Platform</div>
+    <p class="pdesc">A community book-swapping app that helps families trade textbooks instead of buying new ones each year. Features an AI assistant powered by Groq & LLaMA, plus a hotspot map to find nearby swap points. Built by Team <strong>Family Trade</strong>.</p>
+    <div class="pcard-footer">
+      <div class="pstack">
+        <span>📱 Flutter</span><span>🤖 Groq/LLaMA</span><span>🗺️ Hotspot Map</span>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <p class="projects-note reveal">More exciting projects loading... 🚀</p>
+  </section>
+
+  <!-- ══════════════════════════════════
+     CERTIFICATES
+══════════════════════════════════ -->
+<section id="certificates" class="certificates-section">
+  <div class="section-glow"></div>
+  <div class="s-label reveal">My Achievements</div>
+  <h2 class="s-title reveal">Certificates &amp; <span class="gradient-text">Awards</span></h2>
+
+  <div class="cert-grid">
+
+    <div class="cert-card reveal" data-delay="0">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/gstep.jpeg" alt="GSTEP Certificate"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">🏆</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">Ghana Science &amp; Tech Explorer Prize</div>
+            <div class="cert-name">GSTEP Certificate</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">🏆</div>
+          <div class="cert-back-name">GSTEP Certificate</div>
+          <div class="cert-back-org">Ghana Science &amp; Technology Explorer Prize</div>
+          <div class="cert-back-desc">Recognised for outstanding contribution as Technical Coach at the Ghana Science &amp; Technology Explorer Prize national competition.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" data-delay="100">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/Cisco.jpeg" alt="Cisco Cybersecurity"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">🛡️</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">Cisco</div>
+            <div class="cert-name">Introduction to Cybersecurity</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">🛡️</div>
+          <div class="cert-back-name">Introduction to Cybersecurity</div>
+          <div class="cert-back-org">Cisco Networking Academy</div>
+          <div class="cert-back-desc">Completed Cisco's foundational cybersecurity course covering network security, threat detection, and best practices for staying safe online.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" data-delay="200">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/worldbank.jpeg" alt="World Bank Youth Summit"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">🌍</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">World Bank</div>
+            <div class="cert-name">Youth Summit Certificate</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">🌍</div>
+          <div class="cert-back-name">Youth Summit Certificate</div>
+          <div class="cert-back-org">World Bank Group</div>
+          <div class="cert-back-desc">Participated in the World Bank Youth Summit — engaging with global leaders on innovation, development, and solutions for a better future.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" data-delay="300">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/freeCC_RE.jpeg" alt="FreeCodeCamp Web Design"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">🌐</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">freeCodeCamp</div>
+            <div class="cert-name">Responsive Web Design</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">🌐</div>
+          <div class="cert-back-name">Responsive Web Design</div>
+          <div class="cert-back-org">freeCodeCamp</div>
+          <div class="cert-back-desc">Earned the freeCodeCamp Responsive Web Design certification — covering HTML, CSS, flexbox, grid, and building accessible, mobile-first websites.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" data-delay="400">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/freeCC_A2E.jpeg" alt="FreeCodeCamp English"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">📝</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">freeCodeCamp</div>
+            <div class="cert-name">A2 English for Developers</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">📝</div>
+          <div class="cert-back-name">A2 English for Developers</div>
+          <div class="cert-back-org">freeCodeCamp</div>
+          <div class="cert-back-desc">Completed freeCodeCamp's English for Developers course — building technical communication skills essential for the global tech industry.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cert-card reveal" data-delay="500">
+      <div class="cert-card-inner">
+        <div class="cert-front">
+          <div class="cert-img-wrap">
+            <img src="images/STEMpedia.jpeg" alt="STEMpedia Certificate"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+            <div class="cert-placeholder">🤖</div>
+          </div>
+          <div class="cert-front-info">
+            <div class="cert-org">STEMpedia</div>
+            <div class="cert-name">STEMpedia Certificate</div>
+            <div class="cert-flip-hint">Hover to see details ↻</div>
+          </div>
+        </div>
+        <div class="cert-back">
+          <div class="cert-back-icon">🤖</div>
+          <div class="cert-back-name">STEMpedia Certificate</div>
+          <div class="cert-back-org">STEMpedia</div>
+          <div class="cert-back-desc">Certified by STEMpedia in robotics and physical computing — covering hands-on STEM education tools used to inspire young learners across Ghana.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- ══════════════════════════════════
+       GALLERY
+  ══════════════════════════════════ -->
+  <section id="gallery" class="gallery-section">
+    <div class="section-glow"></div>
+    <div class="s-label reveal">My Moments</div>
+    <h2 class="s-title reveal">Photo <span class="gradient-text">Gallery</span></h2>
+
+    <!-- FILTER BUTTONS -->
+    <div class="gallery-filters reveal">
+      <button class="gfbtn active" data-filter="all">All</button>
+      <button class="gfbtn" data-filter="teaching">Teaching</button>
+      <button class="gfbtn" data-filter="events">Events</button>
+      <button class="gfbtn" data-filter="projects">Projects</button>
+      <button class="gfbtn" data-filter="personal">Personal</button>
+    </div>
+
+    <!-- GALLERY GRID -->
+    <div class="gallery-grid" id="galleryGrid">
+
+  <!-- TEACHING -->
+  <div class="gitem tilt-card reveal" data-category="teaching" data-delay="0">
+    <div class="gitem-img-wrap">
+      <div class="gitem-slider">
+        <div class="gitem-slides">
+          <img src="images/teach2.jpg" alt="Teaching at STEAMerChamps" class="gitem-img"/>
+           <!--<img src="images/teach3.jpg" alt="STEM Workshop" class="gitem-img"/> -->
+           <img src="images/teach1.jpg" alt="STEM Workshop" class="gitem-img"/>
+        </div>
+        <button class="slide-prev">‹</button>
+        <button class="slide-next">›</button>
+        <div class="slide-dots"></div>
+      </div>
+      <div class="gitem-placeholder"><span>📸</span><p>Teaching</p></div>
+    </div>
+    <div class="gitem-overlay">
+      <div class="gitem-overlay-content">
+        <div class="gitem-overlay-title">Teaching at STEAMerChamps</div>
+        <div class="gitem-overlay-desc">Facilitating hands-on STEM sessions with young learners</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="gitem tilt-card reveal" data-category="events" data-delay="80">
+    <div class="gitem-img-wrap">
+      <div class="gitem-slider">
+        <div class="gitem-slides">
+          <img src="images/photo1.jpg" alt="Ghana Tech Explorer Prize" class="gitem-img"/>
+          <img src="images/photo6.jpg" alt="Tech Community Event" class="gitem-img"/>
+          <img src="images/events1.jpeg" alt="Tech Community Event" class="gitem-img"/>
+        </div>
+        <button class="slide-prev">‹</button>
+        <button class="slide-next">›</button>
+        <div class="slide-dots"></div>
+      </div>
+      <div class="gitem-placeholder"><span>🏆</span><p>Events</p></div>
+    </div>
+    <div class="gitem-overlay">
+      <div class="gitem-overlay-content">
+        <div class="gitem-overlay-title">Ghana Tech Explorer Prize</div>
+        <div class="gitem-overlay-desc">Coaching student teams at the national competition</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="gitem tilt-card reveal" data-category="projects" data-delay="160">
+    <div class="gitem-img-wrap">
+      <div class="gitem-slider">
+        <div class="gitem-slides">
+          <img src="images/photo3.jpg" alt="Community Tech Solutions" class="gitem-img"/>
+          <img src="images/teach3.jpg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project1.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project2.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project3.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project4.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project5.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project6.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project7.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project8.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project9.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/teach3.jpg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project10.jpeg" alt="STEM Workshop" class="gitem-img"/>
+          <img src="images/project11.jpeg" alt="STEM Workshop" class="gitem-img"/>
+        </div>
+        <button class="slide-prev">‹</button>
+        <button class="slide-next">›</button>
+        <div class="slide-dots"></div>
+      </div>
+      <div class="gitem-placeholder"><span>💡</span><p>Projects</p></div>
+    </div>
+    <div class="gitem-overlay">
+      <div class="gitem-overlay-content">
+        <div class="gitem-overlay-title">Community Tech Solutions</div>
+        <div class="gitem-overlay-desc">Building tech solutions for local community challenges</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL -->
+  <div class="gitem tilt-card reveal" data-category="personal" data-delay="240">
+    <div class="gitem-img-wrap">
+      <div class="gitem-slider">
+        <div class="gitem-slides">
+          <img src="images/photo5.jpg" alt="Yussif Mubarik" class="gitem-img"/>
+         <img src="images/personal1.jpeg" alt="Yussif Mubarik" class="gitem-img"/> 
+        </div>
+        <button class="slide-prev">‹</button>
+        <button class="slide-next">›</button>
+        <div class="slide-dots"></div>
+      </div>
+      <div class="gitem-placeholder"><span>😊</span><p>Personal</p></div>
+    </div>
+    <div class="gitem-overlay">
+      <div class="gitem-overlay-content">
+        <div class="gitem-overlay-title">Yussif Mubarik</div>
+        <div class="gitem-overlay-desc">Computer Science Student & STEM Educator 🇬🇭</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end gallery-grid -->
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+      <button class="lb-close" id="lbClose">✕</button>
+      <button class="lb-prev"  id="lbPrev">‹</button>
+      <button class="lb-next"  id="lbNext">›</button>
+      <div class="lb-img-wrap">
+        <img id="lbImg" src="" alt=""/>
+        <div class="lb-caption" id="lbCaption"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════
+       CONTACT
+  ══════════════════════════════════ -->
+  <section id="contact" class="contact-section">
+    <div class="contact-glow"></div>
+    <div class="s-label reveal light-label">Say Hello</div>
+    <h2 class="s-title reveal light-title">Get In <span class="gradient-text-light">Touch</span></h2>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Whether you want to collaborate on a STEM project, discuss tech education, or just say hi — my inbox is always open! 😊</p>
+        <div class="clinks">
+          <a href="mailto:pelpuon@gmail.com" class="clink magnetic">
+            <div class="clink-icon-wrap">📧</div>
+            <div class="clink-text">
+              <span class="clink-label">Email</span>
+              <span class="clink-val">pelpuon@gmail.com</span>
+            </div>
+            <div class="clink-arrow">→</div>
+          </a>
+          <a href="#" class="clink magnetic">
+            <div class="clink-icon-wrap">🐦</div>
+            <div class="clink-text">
+              <span class="clink-label">Twitter</span>
+              <span class="clink-val">@YussifMubarik</span>
+            </div>
+            <div class="clink-arrow">→</div>
+          </a>
+          <a href="https://www.linkedin.com/in/pelnum?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="clink magnetic">
+            <div class="clink-icon-wrap">💼</div>
+            <div class="clink-text">
+              <span class="clink-label">LinkedIn</span>
+              <span class="clink-val">Mubarik Yussif</span>
+            </div>
+            <div class="clink-arrow">→</div>
+          </a>
+          <a href="https://github.com/Numbu-bit" class="clink magnetic">
+            <div class="clink-icon-wrap">🐙</div>
+            <div class="clink-text">
+              <span class="clink-label">GitHub</span>
+              <span class="clink-val">yussifmubarik</span>
+            </div>
+            <div class="clink-arrow">→</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="cform tilt-card reveal" data-delay="150">
+        <div class="cform-shine"></div>
+        <div class="ffield">
+          <label for="fname">Your Name</label>
+          <input type="text" id="fname" placeholder="Yussif Muabrik" autocomplete="off"/>
+        </div>
+        <div class="ffield">
+          <label for="femail">Email</label>
+          <input type="email" id="femail" placeholder="pelpuon@gmail.com" autocomplete="off"/>
+        </div>
+        <div class="ffield">
+          <label for="fmsg">Message</label>
+          <textarea id="fmsg" placeholder="Hey Yussif, I'd love to..."></textarea>
+        </div>
+        <button class="btn btn-primary magnetic full-btn" id="sendBtn">
+          <span>Send Message</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">MY<span>.</span></div>
+      <p>Designed &amp; built with ❤️ by <strong>Mubarik Yussif</strong> · © 2026, All rights reserved·🇬🇭</p>
+      <div class="footer-links">
+        <a href="#hero">Top ↑</a>
+        <a href="#about">About</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+     PERSONAL AI CHATBOT
+══════════════════════════════════════════ -->
+
+<!-- Floating Chat Button -->
+<div class="chat-bubble" id="chatBubble" title="Ask me anything about Mubarik!">
+  <div class="chat-bubble-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </div>
+  <div class="chat-bubble-close">✕</div>
+  <div class="chat-bubble-ping"></div>
+</div>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-header-left">
+      <div class="chat-avatar">MY</div>
+      <div class="chat-header-info">
+        <div class="chat-name">Mubarik's AI Assistant</div>
+        <div class="chat-status"><span class="chat-online-dot"></span> Online</div>
+      </div>
+    </div>
+    <button class="chat-close-btn" id="chatCloseBtn">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <!-- Welcome message -->
+    <div class="chat-msg bot">
+      <div class="chat-msg-avatar">MY</div>
+      <div class="chat-msg-bubble">
+        👋 Hi! I'm Mubarik's AI assistant. Ask me anything about Yussif — his background, skills, projects, education, or how to get in touch!
+      </div>
+    </div>
+
+    <!-- Quick suggestion chips -->
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-chip" data-msg="Who is Mubarik Yussif?">Who is Mubarik?</button>
+      <button class="chat-chip" data-msg="What are Mubarik's skills?">His skills</button>
+      <button class="chat-chip" data-msg="Tell me about STEAMerChamps Academy">STEAMerChamps</button>
+      <button class="chat-chip" data-msg="What projects has Mubarik worked on?">Projects</button>
+      <button class="chat-chip" data-msg="How can I contact Mubarik">Contact</button>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input
+      type="text"
+      id="chatInput"
+      placeholder="Ask anything about Mubarik..."
+      autocomplete="off"
+    />
+    <button class="chat-send-btn" id="chatSendBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
