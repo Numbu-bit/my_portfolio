@@ -1178,7 +1178,7 @@ footer p strong { color: rgba(255,255,255,0.7); }
 
 .ring-1 { width: 240px !important; height: 240px !important; }
 .ring-2 { width: 280px !important; height: 280px !important; }
-.ring-3 { display: none; }
+.ring-3 { width: 300px !important; height: 300px !important; display: block !important; }
 
 .avatar-card {
   width: 220px !important;
@@ -1223,17 +1223,6 @@ footer p strong { color: rgba(255,255,255,0.7); }
   .ptag { font-size: 0.58rem; padding: 0.1rem 0.4rem; }
   .pstatus { font-size: 0.6rem; }
 
-  /* ── Gallery ── */
-  .gallery-grid { grid-template-columns: 1fr; gap: 0.8rem; }
-  .gallery-filters { gap: 0.4rem; }
-  .gfbtn { font-size: 0.68rem; padding: 0.4rem 0.75rem; }
-
-  /* ── Certificates ── */
-  .cert-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .cert-card { height: 280px; }
-  .cert-name { font-size: 0.8rem; }
-  .cert-org { font-size: 0.62rem; }
-
   /* ── Footer ── */
   .footer-inner { flex-direction: column; text-align: center; }
   .s-title { font-size: 2rem; }
@@ -1242,17 +1231,12 @@ footer p strong { color: rgba(255,255,255,0.7); }
   .cursor-dot, .cursor-ring { display: none; }
   body { cursor: auto; }
 
-  /* ── Lightbox ── */
-  .lb-prev { left: 0.5rem; }
-  .lb-next { right: 0.5rem; }
-  .gitem-img-wrap { padding-top: 65%; }
 }
 
 /* Very small phones ≤ 400px */
 @media (max-width: 400px) {
   .skills-grid         { grid-template-columns: 1fr; }
   .proj-grid           { grid-template-columns: 1fr; }
-  .gallery-grid        { grid-template-columns: 1fr; }
   .about-cards         { grid-template-columns: 1fr; }
 }
 
