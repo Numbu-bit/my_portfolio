@@ -1180,21 +1180,21 @@ footer p strong { color: rgba(255,255,255,0.7); }
   width: 240px !important;
   height: 240px !important;
   display: block !important;
-  animation: ringRotate 20s linear infinite !important;
+  animation: ringRotate 28s linear infinite !important;
 }
 
 .ring-2 {
   width: 280px !important;
   height: 280px !important;
   display: block !important;
-  animation: ringRotate 30s linear infinite reverse !important;
+  animation: ringRotate 40s linear infinite reverse !important;
 }
 
 .ring-3 {
   width: 320px !important;
   height: 320px !important;
   display: block !important;
-  animation: ringRotate 40s linear infinite !important;
+  animation: ringRotate 52s linear infinite !important;
 }
 
 .avatar-card {
