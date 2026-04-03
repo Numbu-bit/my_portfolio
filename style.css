@@ -1181,9 +1181,30 @@ footer p strong { color: rgba(255,255,255,0.7); }
   justify-content: center;
 }
 
-/* Hide orbiting tags on mobile */
+/* Keep orbiting tags on mobile, but scale them down */
 .float-tag {
-  display: none;
+  display: block;
+  font-size: 0.62rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.tag-1 { animation: orbit1Mobile 6.5s linear infinite; }
+.tag-2 { animation: orbit2Mobile 8.5s linear infinite; }
+.tag-3 { animation: orbit3Mobile 7.5s linear infinite; }
+
+@keyframes orbit1Mobile {
+  0%   { transform: translate(-50%,-50%) rotate(0deg)   translateX(112px) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg) translateX(112px) rotate(-360deg); }
+}
+
+@keyframes orbit2Mobile {
+  0%   { transform: translate(-50%,-50%) rotate(120deg) translateX(124px) rotate(-120deg); }
+  100% { transform: translate(-50%,-50%) rotate(480deg) translateX(124px) rotate(-480deg); }
+}
+
+@keyframes orbit3Mobile {
+  0%   { transform: translate(-50%,-50%) rotate(240deg) translateX(118px) rotate(-240deg); }
+  100% { transform: translate(-50%,-50%) rotate(600deg) translateX(118px) rotate(-600deg); }
 }
 
 /* Keep profile visual centered on all small phones */
