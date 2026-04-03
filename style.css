@@ -1176,9 +1176,26 @@ footer p strong { color: rgba(255,255,255,0.7); }
   transform: none !important;
 }
 
-.ring-1 { width: 240px !important; height: 240px !important; }
-.ring-2 { width: 280px !important; height: 280px !important; }
-.ring-3 { display: none; }
+.ring-1 {
+  width: 240px !important;
+  height: 240px !important;
+  display: block !important;
+  animation: ringRotate 20s linear infinite !important;
+}
+
+.ring-2 {
+  width: 280px !important;
+  height: 280px !important;
+  display: block !important;
+  animation: ringRotate 30s linear infinite reverse !important;
+}
+
+.ring-3 {
+  width: 320px !important;
+  height: 320px !important;
+  display: block !important;
+  animation: ringRotate 40s linear infinite !important;
+}
 
 .avatar-card {
   width: 220px !important;
