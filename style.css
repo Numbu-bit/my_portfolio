@@ -401,11 +401,25 @@ nav.scrolled {
   position: absolute; border-radius: 50%; border: 1px solid;
 }
 
+/* Small markers make circular rotation visibly noticeable */
+.avatar-ring::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
 .ring-1 {
   width: 340px; height: 340px;
   border-color: rgba(255,217,74,0.25);
   animation: ringRotate 20s linear infinite;
 }
+
+.ring-1::before { background: #ffd94a; }
 
 .ring-2 {
   width: 420px; height: 420px;
@@ -413,11 +427,15 @@ nav.scrolled {
   animation: ringRotate 30s linear infinite reverse;
 }
 
+.ring-2::before { background: #ff6b35; }
+
 .ring-3 {
   width: 500px; height: 500px;
   border-color: rgba(0,201,167,0.1);
   animation: ringRotate 40s linear infinite;
 }
+
+.ring-3::before { background: #00c9a7; }
 
 @keyframes ringRotate {
   from { transform: rotate(0deg); }
