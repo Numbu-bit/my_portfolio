@@ -1198,18 +1198,18 @@ footer p strong { color: rgba(255,255,255,0.7); }
 .tag-3 { animation: orbit3Mobile 7.5s linear infinite; }
 
 @keyframes orbit1Mobile {
-  0%   { transform: translate(-50%,-50%) rotate(0deg)   translateX(112px) rotate(0deg); }
-  100% { transform: translate(-50%,-50%) rotate(360deg) translateX(112px) rotate(-360deg); }
+  0%   { transform: translate(-50%,-50%) rotate(0deg)   translateX(85px) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg) translateX(85px) rotate(-360deg); }
 }
 
 @keyframes orbit2Mobile {
-  0%   { transform: translate(-50%,-50%) rotate(120deg) translateX(124px) rotate(-120deg); }
-  100% { transform: translate(-50%,-50%) rotate(480deg) translateX(124px) rotate(-480deg); }
+  0%   { transform: translate(-50%,-50%) rotate(120deg) translateX(92px) rotate(-120deg); }
+  100% { transform: translate(-50%,-50%) rotate(480deg) translateX(92px) rotate(-480deg); }
 }
 
 @keyframes orbit3Mobile {
-  0%   { transform: translate(-50%,-50%) rotate(240deg) translateX(118px) rotate(-240deg); }
-  100% { transform: translate(-50%,-50%) rotate(600deg) translateX(118px) rotate(-600deg); }
+  0%   { transform: translate(-50%,-50%) rotate(240deg) translateX(80px) rotate(-240deg); }
+  100% { transform: translate(-50%,-50%) rotate(600deg) translateX(80px) rotate(-600deg); }
 }
 
 /* Keep profile visual centered on all small phones */
