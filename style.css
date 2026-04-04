@@ -1232,8 +1232,8 @@ footer p strong { color: rgba(255,255,255,0.7); }
   margin: 0 auto;
 }
 
-/* Prevent tilt transform from shifting the hero card on touch devices */
-.hero-visual .tilt-card {
+/* Prevent tilt transform from shifting only the avatar card on touch devices */
+.hero-visual .avatar-card.tilt-card {
   transform: none !important;
 }
 
