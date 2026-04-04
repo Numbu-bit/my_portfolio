@@ -32,6 +32,13 @@ const cursorRing = document.getElementById('cursorRing');
 
 let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
+const IS_TOUCH_DEVICE = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+const IS_SMALL_SCREEN = window.innerWidth <= 768;
+const PERF_SCALE = IS_TOUCH_DEVICE ? 0.58 : (IS_SMALL_SCREEN ? 0.78 : 1);
+function perfCount(base, min = 1) {
+  return Math.max(min, Math.round(base * PERF_SCALE));
+}
+
 const useCustomCursor = false; // hydration/layout stability fix
 
 if (!useCustomCursor) {
@@ -410,9 +417,9 @@ class Bubble {
   }
 }
 
-const stars   = Array.from({ length: 140 }, () => new Star());
-const planets = Array.from({ length: 7   }, () => new Planet());
-const bubbles = Array.from({ length: 45  }, () => new Bubble());
+const stars   = Array.from({ length: perfCount(140, 60) }, () => new Star());
+const planets = Array.from({ length: perfCount(7, 3) }, () => new Planet());
+const bubbles = Array.from({ length: perfCount(45, 18) }, () => new Bubble());
 
 /* ── Burst particles ── */
 const bursts = [];
@@ -500,7 +507,7 @@ document.addEventListener('click', e => {
   function resize() { AW = c.width = sec.offsetWidth; AH = c.height = sec.offsetHeight; }
 
   function makeField() {
-    fieldStars = Array.from({ length: 90 }, () => ({
+    fieldStars = Array.from({ length: perfCount(90, 40) }, () => ({
       x: Math.random() * AW, y: Math.random() * AH,
       r: 0.4 + Math.random() * 1.2,
       twinkle: Math.random() * Math.PI * 2,
@@ -595,7 +602,7 @@ document.addEventListener('click', e => {
   function resize() { BW = c.width = sec.offsetWidth; BH = c.height = sec.offsetHeight; }
 
   function makeOrbs() {
-    orbs = Array.from({ length: 18 }, () => ({
+    orbs = Array.from({ length: perfCount(18, 10) }, () => ({
       x: Math.random() * BW, y: Math.random() * BH,
       r: 30 + Math.random() * 80,
       vx: (Math.random() - 0.5) * 0.3,
@@ -655,7 +662,7 @@ document.addEventListener('click', e => {
     };
   }
 
-  function makeParticles() { particles = Array.from({ length: 55 }, () => { const p = newParticle(); p.y = Math.random() * SH; return p; }); }
+  function makeParticles() { particles = Array.from({ length: perfCount(55, 24) }, () => { const p = newParticle(); p.y = Math.random() * SH; return p; }); }
 
   function draw() {
     cx.clearRect(0, 0, SW, SH);
@@ -693,7 +700,7 @@ document.addEventListener('click', e => {
   function resize() { MW = c.width = sec.offsetWidth; MH = c.height = sec.offsetHeight; }
 
   function makeBgStars() {
-    bgStars = Array.from({ length: 60 }, () => ({
+    bgStars = Array.from({ length: perfCount(60, 28) }, () => ({
       x: Math.random() * MW, y: Math.random() * MH,
       r: 0.4 + Math.random() * 1, op: 0.1 + Math.random() * 0.35,
     }));
@@ -710,7 +717,7 @@ document.addEventListener('click', e => {
     });
   }
 
-  setInterval(() => { if (meteors.length < 5) spawnMeteor(); }, 1000 + Math.random() * 1500);
+  setInterval(() => { if (meteors.length < perfCount(5, 3)) spawnMeteor(); }, IS_TOUCH_DEVICE ? 1700 : 1150);
 
   function draw() {
     cx.clearRect(0, 0, MW, MH);
@@ -772,7 +779,7 @@ document.addEventListener('click', e => {
     };
   }
 
-  function makeClouds() { clouds = Array.from({ length: 10 }, () => makeCloud()); }
+  function makeClouds() { clouds = Array.from({ length: perfCount(10, 5) }, () => makeCloud()); }
 
   function drawCloud(cloud) {
     cx.save(); cx.globalAlpha = cloud.opacity;
@@ -829,7 +836,7 @@ document.addEventListener('click', e => {
   function resize() { CW = c.width = sec.offsetWidth; CH = c.height = sec.offsetHeight; }
 
   function makeNodes() {
-    nodes = Array.from({ length: Math.floor((CW * CH) / 12000) + 10 }, () => ({
+    nodes = Array.from({ length: perfCount(Math.floor((CW * CH) / 12000) + 10, 8) }, () => ({
       x: Math.random() * CW, y: Math.random() * CH,
       vx: (Math.random() - 0.5) * 0.32,
       vy: (Math.random() - 0.5) * 0.32,
@@ -847,7 +854,7 @@ document.addEventListener('click', e => {
     const closest = [...nodes].filter(o => o !== a)
       .sort((x, y) => Math.hypot(x.x - a.x, x.y - a.y) - Math.hypot(y.x - a.x, y.y - a.y))[0];
     if (closest) pulses.push({ ax: a.x, ay: a.y, bx: closest.x, by: closest.y, t: 0 });
-  }, 500);
+  }, IS_TOUCH_DEVICE ? 850 : 500);
 
   function draw() {
     cx.clearRect(0, 0, CW, CH);
@@ -1003,7 +1010,7 @@ window.addEventListener('scroll', () => {
   navAnchors.forEach(a => {
     a.style.color = a.getAttribute('href') === `#${currentId}` ? 'var(--yellow)' : '';
   });
-});
+}, { passive: true });
 
 
 /* ══════════════════════════════════════════════════════
@@ -1023,35 +1030,39 @@ document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 /* ══════════════════════════════════════════════════════
    13. 3D TILT CARDS
 ══════════════════════════════════════════════════════ */
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const dx = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
-    const dy = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
-    card.style.transform  = `perspective(800px) rotateX(${-dy * 12}deg) rotateY(${dx * 12}deg) translateZ(6px)`;
-    card.style.transition = 'transform 0.08s ease';
+if (!IS_TOUCH_DEVICE) {
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const dx = (e.clientX - rect.left - rect.width  / 2) / (rect.width  / 2);
+      const dy = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
+      card.style.transform  = `perspective(800px) rotateX(${-dy * 12}deg) rotateY(${dx * 12}deg) translateZ(6px)`;
+      card.style.transition = 'transform 0.08s ease';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform  = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+      card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
+    });
   });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform  = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateZ(0)';
-    card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1)';
-  });
-});
+}
 
 
 /* ══════════════════════════════════════════════════════
    14. MAGNETIC BUTTONS
 ══════════════════════════════════════════════════════ */
-document.querySelectorAll('.magnetic').forEach(el => {
-  el.addEventListener('mousemove', e => {
-    const rect = el.getBoundingClientRect();
-    el.style.transform  = `translate(${(e.clientX - rect.left - rect.width  / 2) * 0.28}px,${(e.clientY - rect.top - rect.height / 2) * 0.28}px)`;
-    el.style.transition = 'transform 0.15s ease';
+if (!IS_TOUCH_DEVICE) {
+  document.querySelectorAll('.magnetic').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      el.style.transform  = `translate(${(e.clientX - rect.left - rect.width  / 2) * 0.28}px,${(e.clientY - rect.top - rect.height / 2) * 0.28}px)`;
+      el.style.transition = 'transform 0.15s ease';
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform  = 'translate(0,0)';
+      el.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1)';
+    });
   });
-  el.addEventListener('mouseleave', () => {
-    el.style.transform  = 'translate(0,0)';
-    el.style.transition = 'transform 0.5s cubic-bezier(0.23,1,0.32,1)';
-  });
-});
+}
 
 
 /* ══════════════════════════════════════════════════════
@@ -1166,7 +1177,7 @@ document.addEventListener('click', e => {
   if (e.button !== 0) return;
   if (e.target.closest('a,button,input,textarea,label,select,canvas,[role="button"],.drawer-link,.chat-send-btn')) return;
   const COLS = ['#FFD94A','#FF6B35','#00C9A7','#ffffff'];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < perfCount(10, 4); i++) {
     const p   = document.createElement('div');
     const ang = (i / 10) * Math.PI * 2;
     const vel = 50 + Math.random() * 60;
