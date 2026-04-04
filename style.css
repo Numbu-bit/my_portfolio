@@ -43,7 +43,7 @@ body {
   background: var(--navy);
   color: var(--white);
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
 ::selection { background: var(--yellow); color: var(--navy); }
@@ -57,6 +57,7 @@ body {
   transform: translate(-50%, -50%);
   transition: width 0.15s, height 0.15s, background 0.15s;
   mix-blend-mode: difference;
+  display: none;
 }
 
 .cursor-ring {
@@ -66,6 +67,7 @@ body {
   transform: translate(-50%, -50%);
   transition: width 0.4s var(--ease), height 0.4s var(--ease),
               border-color 0.3s, transform 0.1s;
+  display: none;
 }
 
 .cursor-ring.hover {
@@ -718,6 +720,8 @@ section { position: relative; z-index: 2; padding: 8rem 5%; }
   background: linear-gradient(135deg, var(--yellow), var(--orange));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   display: inline-block;
+  font-variant-numeric: tabular-nums;
+  min-width: 2ch;
 }
 
 .bstat-sym {

@@ -32,28 +32,37 @@ const cursorRing = document.getElementById('cursorRing');
 
 let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  cursorDot.style.left = mouseX + 'px';
-  cursorDot.style.top  = mouseY + 'px';
-});
+const useCustomCursor = false; // hydration/layout stability fix
 
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  cursorRing.style.left = ringX + 'px';
-  cursorRing.style.top  = ringY + 'px';
-  requestAnimationFrame(animateRing);
+if (!useCustomCursor) {
+  if (cursorDot) cursorDot.style.display = 'none';
+  if (cursorRing) cursorRing.style.display = 'none';
 }
-animateRing();
 
-document.querySelectorAll('a, button, .tilt-card, .chip, .clink').forEach(el => {
-  el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
-});
+if (useCustomCursor && cursorDot && cursorRing) {
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
+  });
 
-document.addEventListener('mousedown', () => cursorRing.classList.add('click'));
-document.addEventListener('mouseup',   () => cursorRing.classList.remove('click'));
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .tilt-card, .chip, .clink').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+  });
+
+  document.addEventListener('mousedown', () => cursorRing.classList.add('click'));
+  document.addEventListener('mouseup',   () => cursorRing.classList.remove('click'));
+}
 
 
 /* ══════════════════════════════════════════════════════
@@ -450,6 +459,7 @@ canvas.style.zIndex = '1';
 
 // Listen on the whole document instead so nothing blocks it
 document.addEventListener('click', e => {
+  if (e.target.closest('a,button,input,textarea,label,select,[role="button"],.drawer-link,.chat-send-btn')) return;
   // Only burst if clicking on hero section area
   const heroSection = document.getElementById('hero');
   if (!heroSection) return;
@@ -462,15 +472,15 @@ document.addEventListener('click', e => {
   const mx = e.clientX;
   const my = e.clientY;
 
-  let burst = false;
-  bubbles.forEach((b, i) => {
+  for (let i = 0; i < bubbles.length; i++) {
+    const b = bubbles[i];
     if (Math.hypot(b.x - mx, b.y - my) < b.r + 15) {
       spawnBurst(b.x, b.y, b.r, b.color);
       bubbles[i].reset();
       bubbles[i].y = H + 80;
-      burst = true;
+      break;
     }
-  });
+  }
 });
 
 
@@ -1065,14 +1075,38 @@ document.querySelectorAll('.sbar[data-bar]').forEach(bar => barObs.observe(bar))
 const counterObs = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const el = entry.target, target = parseInt(el.dataset.target), total = Math.ceil(1800 / 16);
-      let count = 0;
-      const timer = setInterval(() => {
-        count++;
-        el.textContent = Math.round((1 - Math.pow(1 - count / total, 3)) * target);
-        if (count >= total) { el.textContent = target; clearInterval(timer); }
-      }, 16);
+      const el = entry.target;
+      // counter stability fix
+      if (el.dataset.counterAnimated === '1') {
+        counterObs.unobserve(el);
+        return;
+      }
+
+      el.dataset.counterAnimated = '1';
+      const target = parseInt(el.dataset.target, 10);
+      // counter stability fix
+      el.style.minWidth = `${String(target).length}ch`;
+      el.textContent = '0';
+
+      const duration = 1800;
+      let startTs = null;
+
       counterObs.unobserve(el);
+
+      // counter stability fix
+      function step(ts) {
+        if (startTs === null) startTs = ts;
+        const progress = Math.min((ts - startTs) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = String(Math.round(eased * target));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = String(target);
+        }
+      }
+
+      requestAnimationFrame(step);
     }
   });
 }, { threshold: 0.5 });
@@ -1129,7 +1163,8 @@ document.getElementById('sendBtn').addEventListener('click', () => {
    18. PARTICLE TRAIL ON CLICK
 ══════════════════════════════════════════════════════ */
 document.addEventListener('click', e => {
-  if (e.target.closest('a,button,input,textarea,canvas')) return;
+  if (e.button !== 0) return;
+  if (e.target.closest('a,button,input,textarea,label,select,canvas,[role="button"],.drawer-link,.chat-send-btn')) return;
   const COLS = ['#FFD94A','#FF6B35','#00C9A7','#ffffff'];
   for (let i = 0; i < 10; i++) {
     const p   = document.createElement('div');
