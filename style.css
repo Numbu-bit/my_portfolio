@@ -1188,9 +1188,11 @@ footer p strong { color: rgba(255,255,255,0.7); }
 
 /* Keep orbiting tags on mobile, but scale them down */
 .float-tag {
-  display: block;
+  position: absolute;
+  top: 50%; left: 50%;
   font-size: 0.62rem;
   padding: 0.35rem 0.65rem;
+  z-index: 4;
 }
 
 .tag-1 { animation: orbit1Mobile 6.5s linear infinite; }
