@@ -46,6 +46,18 @@ body {
   cursor: auto;
 }
 
+/* Improve tap response on mobile by removing legacy double-tap delay */
+a,
+button,
+input[type="button"],
+input[type="submit"],
+.btn,
+.drawer-link,
+.gfbtn,
+.chat-send-btn {
+  touch-action: manipulation;
+}
+
 ::selection { background: var(--yellow); color: var(--navy); }
 
 
